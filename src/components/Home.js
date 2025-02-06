@@ -37,12 +37,12 @@ const Home = () => {
     <div className="container ml-2 d-flex align-items-center justify-content-center min-vh-100 text-white">
       <div className="row w-100">
         <div className="col-md-2"></div>
-        <div className="col-md-4 d-flex flex-column justify-content-center ">
+        <div className="col-md-5 d-flex flex-column justify-content-center ">
           <h3 className="">Hi! I am Gokul</h3>
           <h1 className="mt-2">{text}</h1>
         </div>
               <div
-            className="col-md-8 d-flex justify-content-center align-items-center rounded-circle"
+            className="col-md-7 d-flex justify-content-center align-items-center rounded-circle"
             style={{
               width: "250px",
               height: "250px",
