@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "homepage": "https://gokulgaddam.github.io/mmyPortfolio",
+  "homepage": "https://gokulgaddam.github.io/myPortfolio",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
