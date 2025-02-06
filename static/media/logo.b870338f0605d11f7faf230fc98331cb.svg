@@ -1,0 +1,17 @@
+<svg  viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    text {
+      font-size: 60px;
+      font-weight: bold;
+      fill: white;
+      font-family: Arial, sans-serif;
+      animation: fadeIn 1.5s ease-in-out infinite alternate;
+    }
+  </style>
+  
+  <text x="50%" y="55%" text-anchor="middle" alignment-baseline="middle">Gokul Reddy</text>
+</svg>
