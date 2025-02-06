@@ -15,19 +15,19 @@ const App = () => {
       <Navbar />
       
       <Routes>
-        {/* Default Route: Redirects "/" to "/home" */}
+        
         <Route path="/" element={<Navigate to="/home" replace />} />
         
-        {/* Home Route */}
+      
         <Route path="/home" element={<Home />} />
         
-        {/* Other Routes */}
+      
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* 404 Not Found (Optional) */}
-        <Route path="*" element={<Navigate to="/home" replace />}  />
+        
+        
       </Routes>
 
       <Footer />
