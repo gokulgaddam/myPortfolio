@@ -43,8 +43,8 @@ const Home = () => {
           <div
             className="image-me d-flex align-items-center justify-content-center rounded-circle mb-4"
             style={{
-              width: "280px",
-              height: "280px",
+              width: "320px",
+              height: "320px",
               backgroundColor: "#fff",
               overflow: "hidden",
             }}
