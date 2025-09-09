@@ -1,7 +1,6 @@
 import React from "react";
 import { FaGithub, FaLinkedin,FaPhone } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
-import logo from "../assets/logo.svg";
 
 const Footer = () => {
   return (

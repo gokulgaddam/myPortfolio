@@ -32,7 +32,7 @@ const Home = () => {
 
     const timeout = setTimeout(type, isDeleting ? typingSpeed / 2 : typingSpeed);
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, phraseIndex]);
+  }, [charIndex, isDeleting, phraseIndex, phrases]);
 
   return (
     <div className="min-vh-100 text-white" style={{ backgroundColor: "#283747" }}>
