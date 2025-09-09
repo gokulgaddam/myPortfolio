@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 //import myPhoto from "../assets/myPhoto.svg";
 import myImage from "../assets/myImage.png"
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/navbar.css";
 
 const Home = () => {
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const phrases = ["I am a Data Engineer", "I am a Data Analyst"];
+  const phrases = ["Software Engineer", "Web Developer"];
   const typingSpeed = 100;
   const delayBetweenPhrases = 1500;
 
@@ -34,34 +35,107 @@ const Home = () => {
   }, [charIndex, isDeleting, phraseIndex]);
 
   return (
-    <div className="container ml-2 d-flex align-items-center justify-content-center min-vh-100 text-white">
-      <div className="row w-100">
-        <div className="col-md-2"></div>
-        <div className="col-md-5 d-flex flex-column justify-content-center ">
-          <h3 className="">Hi! I am Gokul</h3>
-          <h1 className="mt-2">{text}</h1>
-        </div>
-              <div
-            className="col-md-7 d-flex justify-content-center align-items-center rounded-circle"
+    <div className="min-vh-100 text-white" style={{ backgroundColor: "#283747" }}>
+      {/* Desktop Layout */}
+      <div className="d-none d-lg-flex align-items-center position-relative" style={{ height: "100vh" }}>
+        {/* Left Side - Image and Intro */}
+        <div className="col-12 col-lg-5 d-flex flex-column align-items-center justify-content-center px-4">
+          <div
+            className="image-me d-flex align-items-center justify-content-center rounded-circle mb-4"
             style={{
-              width: "250px",
-              height: "250px",
+              width: "280px",
+              height: "280px",
               backgroundColor: "#fff",
               overflow: "hidden",
             }}
           >
             <img
               src={myImage}
-              alt="Subject"
+              alt="I am sorry, you can see me in a while..."
               className="img-fluid"
               style={{ objectFit: "cover" }}
             />
           </div>
           
-    </div>
-    
+          <div className="text-center">
+            <h2 className="mb-3" style={{fontSize: "2.5rem"}}>Hi! I am Gokul</h2>
+            <h1 className="mt-2" style={{fontSize: "3rem"}}>I am a {text}</h1>
+          </div>
+        </div>
+
+        {/* Right Side - About Me Section - Positioned to right edge */}
+        <div className="position-absolute end-0 d-flex align-items-center justify-content-center " style={{ width: "50%", height: "110vh" }}>
+          <div className="p-4 d-flex flex-column justify-content-center" style={{ backgroundColor: "#ffffff", boxShadow: "4px 4px 15px rgba(0, 0, 0, 0.1)",  maxWidth: "100%", height: "50vh", overflowY: "auto" }}>
+              <h1 className="mb-4 text-center" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '2.5rem'}}>ABOUT ME</h1>
+              <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1.5rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
+                My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
+
+                That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
+                <br />
+                Pursuing a Master's in Data Analytics Engineering has allowed me to expand my technical skills and work with cutting-edge technologies. Alongside my studies, I worked as a Teaching Assistant, helping students understand programming concepts and sharing my love for coding with others.
+
+                Now, I'm seeking opportunities as a Software Engineer or Web Developer, eager to build innovative solutions and continue growing as a developer.
+                <br /><br />
+                Let me know if you wanna connect, whether it's talking about building a new website, creating an application, or collaborating on exciting projects.  
+                I love coding and making things happen through technology!
+              </p>
+            </div>
+          </div>
       </div>
-   
+
+      {/* Mobile Layout */}
+      <div className="d-lg-none mt-5">
+        {/* Hero Section */}
+        <div className="container d-flex flex-column align-items-center justify-content-center text-center py-5" style={{ minHeight: "60vh" }}>
+          <div
+            className="image-me d-flex align-items-center justify-content-center rounded-circle mb-4"
+            style={{
+              width: "200px",
+              height: "200px",
+              backgroundColor: "#fff",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={myImage}
+              alt="I am sorry, you can see me in a while..."
+              className="img-fluid"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          
+          <div className="px-3">
+            <h2 className="mb-3" style={{fontSize: "2rem"}}>Hi! I am Gokul</h2>
+            <h1 className="mt-2" style={{fontSize: "2.5rem"}}>I am a {text}</h1>
+          </div>
+        </div>
+
+        {/* About Me Section - Below on mobile */}
+        <div className="w-100" style={{ backgroundColor: "#ffffff", padding: "40px 0" }}>
+          <div className="container px-3">
+            <div className="row justify-content-center">
+              <div className="col-12">
+                <div className="text-center">
+                  <h1 className="mb-4" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '2rem'}}>ABOUT ME</h1>
+                  <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1.2rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
+                    My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
+
+                    That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
+                    <br />
+                    Pursuing a Master's in Data Analytics Engineering has allowed me to expand my technical skills and work with cutting-edge technologies. Alongside my studies, I worked as a Teaching Assistant, helping students understand programming concepts and sharing my love for coding with others.
+
+                    Now, I'm seeking opportunities as a Software Engineer or Web Developer, eager to build innovative solutions and continue growing as a developer.
+                    <br /><br />
+                    Let me know if you wanna connect, whether it's talking about building a new website, creating an application, or collaborating on exciting projects.  
+                    I love coding and making things happen through technology!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

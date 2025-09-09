@@ -8,7 +8,7 @@ const ContactMe = () => {
     message: "",
   });
 
-  const [status, setStatus] = useState(""); // To show success/error message
+  const [status, setStatus] = useState(""); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,16 +19,16 @@ const ContactMe = () => {
 
     emailjs
       .send(
-        "YOUR_SERVICE_ID", // Replace with EmailJS Service ID
-        "YOUR_TEMPLATE_ID", // Replace with EmailJS Template ID
+        "service_rgyf7nf", 
+        "template_67wjiho", 
         formData,
-        "YOUR_PUBLIC_KEY" // Replace with EmailJS Public Key
+        "twBs_eZ9nQJjKgyS_" 
       )
       .then(
         (response) => {
           console.log("Email sent!", response);
           setStatus("Message sent successfully! ");
-          setFormData({ name: "", email: "", message: "" }); // Clear form
+          setFormData({ name: "", email: "", message: "" }); 
         },
         (error) => {
           console.log("Failed to send email", error);
@@ -38,8 +38,8 @@ const ContactMe = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="card shadow-lg p-2 w-50 h-60" style={{  borderRadius: "10px" }}>
+    <div className="container d-flex justify-content-center align-items-center vh-100 px-3">
+      <div className="card shadow-lg p-3 w-100" style={{  borderRadius: "10px", maxWidth: "500px" }}>
         <h2 className="text-center">Contact Me</h2>
         <form onSubmit={sendEmail} className="d-flex flex-column align-items-center">
           <input
@@ -69,7 +69,7 @@ const ContactMe = () => {
             className="form-control mb-3"
             rows="4"
           />
-          <button type="submit" className="align-items-center btn btn-primary w-50">Send Message</button>
+          <button type="submit" className="align-items-center btn btn-primary w-100 w-md-50">Send Message</button>
         </form>
         {status && <p className="text-center mt-3 text-muted">{status}</p>}
       </div>
