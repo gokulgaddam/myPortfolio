@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 //import myPhoto from "../assets/myPhoto.svg";
 import myImage from "../assets/myImage.png"
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +9,8 @@ const Home = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const phrases = ["Software Engineer", "Web Developer"];
+  
+  const phrases = useMemo(() => ["Software Engineer", "Web Developer"], []);
   const typingSpeed = 100;
   const delayBetweenPhrases = 1500;
 
