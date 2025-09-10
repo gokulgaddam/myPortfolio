@@ -59,16 +59,16 @@ const Home = () => {
           </div>
           
           <div className="text-center">
-            <h2 className="mb-3" style={{fontSize: "2.5rem"}}>Hi! I am Gokul</h2>
-            <h1 className="mt-2" style={{fontSize: "3rem"}}>I am a {text}</h1>
+            <h2 className="mb-3" style={{fontSize: "2rem"}}>Hi! I am Gokul</h2>
+            <h1 className="mt-2" style={{fontSize: "2.5rem"}}>I am a {text}</h1>
           </div>
         </div>
 
         {/* Right Side - About Me Section - Positioned to right edge */}
         <div className="position-absolute end-0 d-flex align-items-center justify-content-center " style={{ width: "50%", height: "110vh" }}>
           <div className="p-4 d-flex flex-column justify-content-center" style={{ backgroundColor: "#ffffff", boxShadow: "4px 4px 15px rgba(0, 0, 0, 0.1)",  maxWidth: "100%", height: "50vh", overflowY: "auto" }}>
-              <h1 className="mb-4 text-center" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '2.5rem'}}>ABOUT ME</h1>
-              <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1.5rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
+              <h1 className="mb-4 text-center" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '2rem'}}>ABOUT ME</h1>
+              <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1.1rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
                 My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
 
                 That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
@@ -106,8 +106,8 @@ const Home = () => {
           </div>
           
           <div className="px-3">
-            <h2 className="mb-3" style={{fontSize: "2rem"}}>Hi! I am Gokul</h2>
-            <h1 className="mt-2" style={{fontSize: "2.5rem"}}>I am a {text}</h1>
+            <h2 className="mb-3" style={{fontSize: "1.5rem"}}>Hi! I am Gokul</h2>
+            <h1 className="mt-2" style={{fontSize: "2rem"}}>I am a {text}</h1>
           </div>
         </div>
 
@@ -117,8 +117,8 @@ const Home = () => {
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className="text-center">
-                  <h1 className="mb-4" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '2rem'}}>ABOUT ME</h1>
-                  <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1.2rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
+                  <h1 className="mb-4" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '1.5rem'}}>ABOUT ME</h1>
+                  <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1rem', color: '#333', lineHeight: "1.6"}} className='text-wrap'>
                     My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
 
                     That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
