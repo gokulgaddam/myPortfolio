@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaGithub } from "react-icons/fa";
 import F1Image from "../assets/F1.png";
@@ -60,36 +60,139 @@ const projects = [
 
 
 const Projects = () => {
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleCard = (projectId) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [projectId]: !prev[projectId]
+    }));
+  };
+
   return (
     <div className="container my-5 px-0">
+      <h2 className="text-center mb-5 mt-4 text-light">My Projects</h2>
       
       <div className="row mt-4">
         {projects.map((project) => (
           <div key={project.id} className="col-12 col-md-6 col-lg-4 mt-4">
-            <div className="card w-100 shadow-lg border-2 h-100" style={{maxHeight:"26rem"}}>
-              <img src={project.image} className="card-img-top img-fluid" style={{maxHeight:"10rem", objectFit: "cover"}} alt={project.title} />
-              <div className="card-body d-flex flex-column text-center">
-                <h5 className="card-title">{project.title}</h5>
-                <div className="card-text" style={{ maxHeight: "10rem", overflowY: "auto" }}>
-                    <b>Gist of the project</b>  
-                    <br />
-
-                    <ul className="list-group list-group-flush">
-                      {project.info.map((i, index) => (
-                        <li key={index} className="list-group-item disabled text-wrap">{i}</li>
-                      ))}
-                    </ul>
+            <div 
+              className="card w-100 shadow-lg border-2 position-relative overflow-hidden" 
+              style={{
+                height: "50vh !important",
+                minHeight: "50vh",
+                maxHeight: "50vh",
+                cursor: "pointer",
+                transition: "all 0.3s ease"
+              }}
+              onClick={() => toggleCard(project.id)}
+            >
+              {/* Background Image */}
+              <div 
+                className="position-absolute w-100 h-100"
+                style={{
+                  backgroundImage: `url(${project.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  filter: expandedCards[project.id] ? "brightness(0.3)" : "brightness(0.9)"
+                }}
+              />
+              
+              {/* Dark Overlay */}
+              <div 
+                className="position-absolute w-100 h-100"
+                style={{
+                  backgroundColor: expandedCards[project.id] ? "rgba(0,0,0,0.8)" : "rgba(0,0,0,0.3)"
+                }}
+              />
+              
+              {/* Content */}
+              <div 
+                className="position-relative h-100 text-white" 
+                style={{ 
+                  padding: "1rem",
+                  display: "flex",
+                  flexDirection: "column"
+                }}
+              >
+                {/* Expandable Content */}
+                <div 
+                  className={`w-100 ${expandedCards[project.id] ? 'd-block' : 'd-none'}`}
+                  style={{
+                    transition: "all 0.3s ease",
+                    maxHeight: expandedCards[project.id] ? "250px" : "0px",
+                    overflow: "hidden"
+                  }}
+                >
+                  <div className="text-center">
+                    <h6 className="mb-3 fw-bold" style={{ fontSize: "1.1rem" }}>
+                      Project Details
+                    </h6>
+                    
+                    <div 
+                      className="text-start"
+                      style={{ 
+                        maxHeight: "200px", 
+                        overflowY: "auto",
+                        fontSize: "0.9rem",
+                        lineHeight: "1.4"
+                      }}
+                    >
+                      <ul className="list-unstyled">
+                        {project.info.map((info, index) => (
+                          <li key={index} className="mb-2">
+                            <span className="text-primary">•</span> {info}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
                     {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="">
-                        <FaGithub />
-                      </a>
-            
+                      <div className="mt-3">
+                        <a 
+                          href={project.github} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn btn-outline-light btn-sm"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <FaGithub className="me-2" />
+                          View Code
+                        </a>
+                      </div>
                     )}
-                  
-                  
+                  </div>
                 </div>
-                
+               
               </div>
+               
+                {/* Bottom Section - Title and Click Indicator */}
+                <div 
+                  className="w-100 text-center position-absolute bottom-0 end-0" 
+                  style={{ padding: "1rem", backgroundColor: "rgba(0,0,0,0.3)", color: "white" }}
+                >
+                  {/* Title - Always Visible at Bottom */}
+                  <h3 
+                    className=" fw-bold"
+                    style={{ 
+                      fontSize: "1.5rem",
+                      textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
+                      transition: "all 0.3s ease"
+                    }}
+                  >
+                    {project.title}
+                  </h3>
+                  
+                  {/* Click Indicator */}
+                  {!expandedCards[project.id] && (
+                    <div>
+                      <small className="text-light opacity-75">
+                        Click to view details
+                      </small>
+                    </div>
+                  )}
+                </div>
             </div>
           </div>
         ))}
