@@ -1,237 +1,262 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Experience = () => {
-  const dotRefs = useRef({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          console.log('Dot intersection:', entry.isIntersecting, entry.target);
-          if (entry.isIntersecting) {
-            entry.target.style.transform = 'scale(2)';
-            entry.target.style.transition = 'transform 0.5s ease';
-            console.log('Scaling up dot');
-          } else {
-            entry.target.style.transform = 'scale(1)';
-            console.log('Scaling down dot');
-          }
-        });
-      },
-      {
-        threshold: 0.1, // Trigger when 10% of the dot is visible
-        rootMargin: '0px 0px -50px 0px' // Start animation when dot is 50px from bottom of viewport
-      }
-    );
-
-    // Add a small delay to ensure all refs are set
-    setTimeout(() => {
-      console.log('All dot refs:', dotRefs.current);
-      Object.values(dotRefs.current).forEach((dot, index) => {
-        if (dot) {
-          console.log(`Observing dot ${index}:`, dot);
-          observer.observe(dot);
-        } else {
-          console.log(`Dot ${index} is null`);
-        }
-      });
-    }, 100);
-
-    return () => {
-      observer.disconnect();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+  const experiences = [
+    {
+      id: 1,
+      title: "Software Engineer",
+      company: "CrowdDoing",
+      period: "Mar 2025 – Present",
+      isCurrent: true,
+      tools: ["React", "JavaScript", "Node.js", "CSS", "Bootstrap"],
+      highlights: [
+        "Built interactive React components with charts and streak counters for user goal visualization",
+        "Enhanced user engagement through dynamic data visualization features"
+      ]
+    },
+    {
+      id: 2,
+      title: "Graduate Teaching Assistant",
+      company: "George Mason University",
+      period: "Jan 2023 – Dec 2024",
+      isCurrent: false,
+      tools: ["HTML", "CSS", "Bootstrap", "JavaScript", "React"],
+      highlights: [
+        "Mentored 90+ students in web development fundamentals",
+        "Improved student learning outcomes through hands-on coding sessions"
+      ]
+    },
+    {
+      id: 3,
+      title: "Associate Software Engineer",
+      company: "Accenture Solutions Pvt. Ltd.",
+      period: "Sep 2021 – Jun 2022",
+      isCurrent: false,
+      tools: ["Node.js", "AWS", "Redis", "Jest", "React", "REST APIs"],
+      highlights: [
+        "Built and deployed scalable Node.js microservices on AWS, serving 50K+ users",
+        "Integrated Redis caching, reducing API response times by 40%"
+      ]
+    },
+    {
+      id: 4,
+      title: "Software Developer",
+      company: "Kalpas Innovations Pvt. Ltd.",
+      period: "Aug 2020 – Jul 2021",
+      isCurrent: false,
+      tools: ["React.js", "Node.js", "REST APIs", "Swagger", "OpenAPI"],
+      highlights: [
+        "Developed responsive React.js web pages for college predictor application",
+        "Built Node.js backend with REST APIs for dynamic data retrieval"
+      ]
+    }
+  ];
+
+  const getToolIcon = (tool) => {
+    const iconMap = {
+      "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      "CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "Bootstrap": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+      "HTML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "AWS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+      "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+      "Jest": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+      "Swagger": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg"
+    };
+    return iconMap[tool] || "";
+  };
 
   return (
-    <div className="container my-5 px-0">
-      <h2 className="text-center mb-5 mt-4 text-light">My Experience</h2>
+    <div id="experience" className="my-5" style={{ padding: "0" }}>
+      <h2 className="text-center mb-5 mt-4" style={{fontSize: isMobile ? '1.5rem' : '2rem', fontWeight: '300', color: '#000000'}}>My Experience</h2>
       
-      {/* Timeline Container */}
-      <div className="position-relative">
-        {/* Timeline Line - Hidden on mobile */}
-        <div className="position-absolute start-50 translate-middle-x d-none d-md-block" style={{
-          width: '2px',
-          height: '100%',
-          backgroundColor: '#ffffff',
-          zIndex: 1
-        }}></div>
-
-        {/* Experience Items */}
-        <div className="row mb-5">
-          {/* Left Side - CrowdDoing */}
-          <div className="col-12 col-md-5 pe-md-4">
-            <div className="card shadow-lg border-2" style={{ backgroundColor: "#ffffff", borderRadius: "12px", minHeight: "200px" }}>
-              <div className="card-body p-5">
-                <div className="d-flex justify-content-between align-items-start mb-4">
-                  <h3 className="card-title text-primary mb-0" style={{ fontSize: '1.5rem' }}>Software Engineer – ReactNative</h3>
-                  <span className="badge bg-primary" style={{ fontSize: '1rem' }}>Current</span>
+      {/* Experience Cards Container */}
+      <div className="position-relative" style={{ width: '100%' }}>
+        {experiences.map((exp, index) => (
+          <div 
+            key={exp.id} 
+            className="position-relative mb-5" 
+            style={{ 
+              width: '100%', 
+              display: 'flex', 
+              justifyContent: isMobile ? 'center' : (index % 2 === 0 ? 'flex-start' : 'flex-end')
+            }}
+          >
+            <div 
+              className="experience-card"
+              style={{
+                backgroundColor: '#ffffff',
+                border: 'none',
+                borderRadius: '0px',
+                padding: isMobile ? '1.5rem' : '2rem',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                width: isMobile ? '90%' : '60%',
+                minHeight: isMobile ? '250px' : '300px'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
+              }}
+            >
+              {/* Header */}
+              <div className="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h3 
+                    className="mb-1" 
+                    style={{ 
+                      fontSize: isMobile ? '1.2rem' : '1.4rem', 
+                      fontWeight: '600', 
+                      color: '#000000' 
+                    }}
+                  >
+                    {exp.title}
+                  </h3>
+                  <h5 
+                    className="mb-2" 
+                    style={{ 
+                      fontSize: isMobile ? '1rem' : '1.1rem', 
+                      fontWeight: '500', 
+                      color: '#666666' 
+                    }}
+                  >
+                    {exp.company}
+                  </h5>
+                  <p 
+                    className="mb-3" 
+                    style={{ 
+                      fontSize: isMobile ? '0.8rem' : '0.9rem', 
+                      color: '#888888' 
+                    }}
+                  >
+                    {exp.period}
+                  </p>
                 </div>
-                <h5 className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>CrowdDoing</h5>
-                <p className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Mar 2025 – Present</p>
-                <p className="card-text" style={{ fontSize: '1rem', lineHeight: "1.7" }}>
-                  • Built interactive React components, including charts and streak counters to visualize user goals
-                </p>
+                {exp.isCurrent && (
+                  <span 
+                    className="badge px-3 py-2" 
+                    style={{ 
+                      backgroundColor: '#28a745', 
+                      color: '#000000', 
+                      fontSize: '0.8rem',
+                      borderRadius: '20px'
+                    }}
+                  >
+                    Current
+                  </span>
+                )}
               </div>
-            </div>
-          </div>
-          
-          {/* Timeline Dot - Hidden on mobile */}
-          <div className="col-2 d-none d-md-flex justify-content-center align-items-center">
-            <div 
-              ref={(el) => dotRefs.current['dot-0'] = el}
-              data-dot-id="0"
-              className="rounded-circle bg-white border border-3 border-primary" 
-              style={{
-                width: '20px',
-                height: '20px',
-                zIndex: 2,
-                position: 'relative',
-                transition: 'transform 0.5s ease'
-              }}
-            ></div>
-          </div>
-          
-          {/* Right Side - Date - Hidden on mobile */}
-          <div className="col-12 col-md-5 ps-md-4 d-none d-md-flex align-items-center">
-            <div className="text-center">
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Mar 2025</p>
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Present</p>
-            </div>
-          </div>
-        </div>
 
-        <div className="row mb-5">
-          {/* Left Side - Date - Hidden on mobile */}
-          <div className="col-12 col-md-5 pe-md-4 d-none d-md-flex align-items-center justify-content-end">
-            <div className="text-center">
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Jan 2023</p>
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Dec 2024</p>
-            </div>
-          </div>
-          
-          {/* Timeline Dot - Hidden on mobile */}
-          <div className="col-2 d-none d-md-flex justify-content-center align-items-center">
-            <div 
-              ref={(el) => dotRefs.current['dot-1'] = el}
-              data-dot-id="1"
-              className="rounded-circle bg-white border border-3 border-primary" 
-              style={{
-                width: '20px',
-                height: '20px',
-                zIndex: 2,
-                position: 'relative',
-                transition: 'transform 0.5s ease'
-              }}
-            ></div>
-          </div>
-          
-          {/* Right Side - GMU */}
-          <div className="col-12 col-md-5 ps-md-4">
-            <div className="card shadow-lg border-2" style={{ backgroundColor: "#ffffff", borderRadius: "12px", minHeight: "200px" }}>
-              <div className="card-body p-5">
-                <h3 className="card-title text-primary mb-4" style={{ fontSize: '1.5rem' }}>Graduate Teaching Assistant – Web Development</h3>
-                <h5 className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>George Mason University</h5>
-                <p className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Jan 2023 – Dec 2024</p>
-                <p className="card-text" style={{ fontSize: '1rem', lineHeight: "1.7" }}>
-                  • Mentored 90+ students in web development fundamentals (HTML, CSS, Bootstrap)
-                </p>
+              {/* Tools */}
+              <div className="mb-4">
+                <h6 
+                  style={{ 
+                    fontSize: isMobile ? '0.8rem' : '0.9rem', 
+                    fontWeight: '500', 
+                    color: '#666666',
+                    marginBottom: '0.8rem'
+                  }}
+                >
+                  Key Tools Used:
+                </h6>
+                <div className="d-flex flex-wrap gap-2">
+                  {exp.tools.map((tool, toolIndex) => (
+                    <div 
+                      key={toolIndex}
+                      className="d-flex align-items-center px-2 py-1"
+                      style={{
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '6px',
+                        border: '1px solid #e0e0e0',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#e8e8e8';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = '#f8f8f8';
+                      }}
+                    >
+                      <img 
+                        src={getToolIcon(tool)} 
+                        alt={tool}
+                        style={{
+                          width: '16px',
+                          height: '16px',
+                          marginRight: '6px'
+                        }}
+                      />
+                      <span 
+                        style={{ 
+                          fontSize: isMobile ? '0.7rem' : '0.8rem', 
+                          color: '#000000' 
+                        }}
+                      >
+                        {tool}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="row mb-5">
-          {/* Left Side - Accenture */}
-          <div className="col-12 col-md-5 pe-md-4">
-            <div className="card shadow-lg border-2" style={{ backgroundColor: "#ffffff", borderRadius: "12px", minHeight: "280px" }}>
-              <div className="card-body p-5">
-                <h3 className="card-title text-primary mb-4" style={{ fontSize: '1.5rem' }}>Associate Software Engineer – Full Stack</h3>
-                <h5 className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Accenture Solutions Pvt. Ltd.</h5>
-                <p className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Sep 2021 – Jun 2022</p>
-                <p className="card-text" style={{ fontSize: '1rem', lineHeight: "1.7" }}>
-                  • Built and deployed scalable Node.js microservices on AWS, delivering application to 50K+ users
-                  <br />
-                  • Integrated Redis caching into Node.js services, reducing API response times by 40%
-                  <br />
-                  • Designed and optimized RESTful APIs, ensuring secure data flow and seamless integration
-                  <br />
-                  • Implemented unit and integration tests with Jest and Mocha, reducing production bugs
-                  <br />
-                  • Contributed to React front-end components, improving dashboard responsiveness
-                </p>
+              {/* Highlights */}
+              <div>
+                <h6 
+                  style={{ 
+                    fontSize: isMobile ? '0.8rem' : '0.9rem', 
+                    fontWeight: '500', 
+                    color: '#666666',
+                    marginBottom: '0.8rem'
+                  }}
+                >
+                  Key Highlights:
+                </h6>
+                <ul className="list-unstyled">
+                  {exp.highlights.map((highlight, highlightIndex) => (
+                    <li 
+                      key={highlightIndex}
+                      className="mb-2"
+                      style={{
+                        fontSize: isMobile ? '0.8rem' : '0.9rem',
+                        lineHeight: '1.5',
+                        color: '#000000'
+                      }}
+                    >
+                      <span 
+                        style={{ 
+                          color: '#000000',
+                          marginRight: '8px',
+                          fontWeight: 'bold'
+                        }}
+                      >
+                        •
+                      </span>
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
-          
-          {/* Timeline Dot - Hidden on mobile */}
-          <div className="col-2 d-none d-md-flex justify-content-center align-items-center">
-            <div 
-              ref={(el) => dotRefs.current['dot-2'] = el}
-              data-dot-id="2"
-              className="rounded-circle bg-white border border-3 border-primary" 
-              style={{
-                width: '20px',
-                height: '20px',
-                zIndex: 2,
-                position: 'relative',
-                transition: 'transform 0.5s ease'
-              }}
-            ></div>
-          </div>
-          
-          {/* Right Side - Date - Hidden on mobile */}
-          <div className="col-12 col-md-5 ps-md-4 d-none d-md-flex align-items-center">
-            <div className="text-center">
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Sep 2021</p>
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Jun 2022</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="row mb-5">
-          {/* Left Side - Date - Hidden on mobile */}
-          <div className="col-12 col-md-5 pe-md-4 d-none d-md-flex align-items-center justify-content-end">
-            <div className="text-center">
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Aug 2020</p>
-              <p className="text-white mb-0" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Jul 2021</p>
-            </div>
-          </div>
-          
-          {/* Timeline Dot - Hidden on mobile */}
-          <div className="col-2 d-none d-md-flex justify-content-center align-items-center">
-            <div 
-              ref={(el) => dotRefs.current['dot-3'] = el}
-              data-dot-id="3"
-              className="rounded-circle bg-white border border-3 border-primary" 
-              style={{
-                width: '20px',
-                height: '20px',
-                zIndex: 2,
-                position: 'relative',
-                transition: 'transform 0.5s ease'
-              }}
-            ></div>
-          </div>
-          
-          {/* Right Side - Kalpas */}
-          <div className="col-12 col-md-5 ps-md-4">
-            <div className="card shadow-lg border-2" style={{ backgroundColor: "#ffffff", borderRadius: "12px", minHeight: "240px" }}>
-              <div className="card-body p-5">
-                <h3 className="card-title text-primary mb-4" style={{ fontSize: '1.5rem' }}>Software Developer – Full Stack</h3>
-                <h5 className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Kalpas Innovations Pvt. Ltd.</h5>
-                <p className="text-muted mb-3" style={{ fontSize: '1.1rem' }}>Aug 2020 – Jul 2021</p>
-                <p className="card-text" style={{ fontSize: '1rem', lineHeight: "1.7" }}>
-                  • Developed responsive React.js web pages for a College Predictor application
-                  <br />
-                  • Built and integrated a Node.js backend with REST APIs for dynamic data retrieval
-                  <br />
-                  • Authored technical documentation using Swagger/OpenAPI for clear API specifications
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

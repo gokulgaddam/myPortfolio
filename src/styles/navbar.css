@@ -1,7 +1,8 @@
 
   .navbar-nav .nav-link {
-    font-size: 1.2rem !important;
-    color: #ffffff !important;
+    font-size: 1.0rem !important;
+    color: #000000 !important;
+    font-weight: 500 !important;
   }
   
   .navbar-brand {

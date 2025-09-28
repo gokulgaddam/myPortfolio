@@ -37,3 +37,8 @@
     transform: rotate(360deg);
   }
 }
+
+/* Project card hover effect */
+.card:hover .project-overlay {
+  background-color: rgba(0,0,0,0.4) !important;
+}

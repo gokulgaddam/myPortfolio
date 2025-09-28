@@ -8,7 +8,8 @@ const ContactMe = () => {
     message: "",
   });
 
-  const [status, setStatus] = useState(""); 
+  const [status, setStatus] = useState("");
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,9 +39,12 @@ const ContactMe = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100 px-3">
-      <div className="card shadow-lg p-3 w-100" style={{  borderRadius: "10px", maxWidth: "500px" }}>
-        <h2 className="text-center">Contact Me</h2>
+    <div id="contact" className="container d-flex justify-content-center align-items-center my-4 " style={{ minHeight: "10vh" }}>
+      
+      <div className="card shadow-lg p-3 w-100 " style={{ 
+        maxWidth: "500px"
+      }}>
+        <h2 className="text-center" style={{color: '#000000'}}>Lets Connect!</h2>
         <form onSubmit={sendEmail} className="d-flex flex-column align-items-center">
           <input
             type="text"
@@ -69,9 +73,9 @@ const ContactMe = () => {
             className="form-control mb-3"
             rows="4"
           />
-          <button type="submit" className="align-items-center btn btn-primary w-100 w-md-50">Send Message</button>
+          <button type="submit" className="align-items-center btn btn-dark w-100 w-md-50">Send Message</button>
         </form>
-        {status && <p className="text-center mt-3 text-muted">{status}</p>}
+        {status && <p className="text-center mt-3" style={{color: '#000000'}}>{status}</p>}
       </div>
     </div>
   );

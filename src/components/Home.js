@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useMemo } from "react";
-//import myPhoto from "../assets/myPhoto.svg";
-import myImage from "../assets/myImage.png"
+import myImage from "../assets/myImage.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/navbar.css";
 
 const Home = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -36,18 +44,19 @@ const Home = () => {
   }, [charIndex, isDeleting, phraseIndex, phrases]);
 
   return (
-    <div className="min-vh-100 text-white" style={{ backgroundColor: "#283747" }}>
+    <div id="home" className="text-white" style={{paddingTop: isMobile ? "10px" : "80px" }}>
       {/* Desktop Layout */}
-      <div className="d-none d-lg-flex align-items-center" style={{ height: "100vh" }}>
-        {/* Left Side - Image and Intro */}
-        <div className="col-lg-5 d-flex flex-column align-items-center justify-content-center px-2">
+      <div className="d-none d-lg-flex flex-column align-items-center justify-content-center" style={{ minHeight: "80vh", padding: "40px 0" }}>
+        {/* Top Section - Image and Intro */}
+        <div className="d-flex flex-column align-items-center justify-content-center px-2 my-5">
           <div
-            className="image-me d-flex align-items-center justify-content-center rounded-circle mb-4"
+            className="image-me d-flex align-items-center justify-content-center rounded-circle mb-5"
             style={{
-              width: "280px",
-              height: "280px",
+              width: "250px",
+              height: "250px",
               backgroundColor: "#fff",
               overflow: "hidden",
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
             }}
           >
             <img
@@ -58,36 +67,45 @@ const Home = () => {
             />
           </div>
           
-          <div className="text-center">
-            <h2 className="mb-3" style={{fontSize: "2rem "}}>Hi! I am Gokul</h2>
-            <h1 className="mt-2" style={{fontSize: "2rem "}}>I am a {text}</h1>
+          <div className="text-center my-1" >
+            <h2 className="" style={{fontSize: "1.5rem", color: "#000000" }}>Hi, I am Gokul</h2>
+            <h1 className="mt-3" style={{fontSize: "1.5rem", color: "#000000"}}>I am a {text}<span className="blinking-cursor">_</span></h1>
           </div>
         </div>
 
-        {/* Right Side - About Me Section - Positioned to right edge */}
-        <div className="position-absolute end-0 d-flex align-items-center justify-content-center " style={{ width: "50%", height: "100vh" }}>
-          <div className="p-4 d-flex flex-column justify-content-start" style={{ backgroundColor: "#ffffff", boxShadow: "4px 4px 15px rgba(0, 0, 0, 0.1)",  maxWidth: "100%", height: "60vh", overflowY: "auto", marginTop: "10vh" }}>
-              <h1 className="mb-4 text-center" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '1.5rem'}}><bold>ABOUT ME</bold></h1>
-              <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1rem', color: '#333', lineHeight: "1.5"}} className='text-wrap'>
-                My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
+        {/* About Me Section - Retro Billboard */}
+        <div className="w-100 d-flex justify-content-center">
+          <div 
+            className=" p-5 d-flex flex-column justify-content-start" 
+            style={{ 
+              backgroundColor: "#ffffff", 
+              width: "70%", 
+              minHeight: "400px",
+              border: 'none',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+              position: 'relative'
+            }}
+          >
 
-                That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
-               
-                Pursuing a Master's in Data Analytics Engineering has allowed me to expand my technical skills and work with cutting-edge technologies. Alongside my studies, I worked as a Teaching Assistant, helping students understand programming concepts and sharing my love for coding with others.
-                <br />
-                I love coding and making things happen through technology!
-                <br />
- 
-                
-              </p>
-            </div>
+            {/* Billboard Content */}
+        <h1 className="mb-4 text-center" style={{color: '#000000', fontSize: '1.5rem', fontWeight: '400'}}>About Me</h1>
+        <p style={{fontSize: '1rem', color: '#000000', lineHeight: "1.6", textAlign: 'center'}} className='text-wrap'>
+              My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
+
+              That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.
+             
+              Pursuing a Master's in Data Analytics Engineering has allowed me to expand my technical skills and work with cutting-edge technologies. Alongside my studies, I worked as a Teaching Assistant, helping students understand programming concepts and sharing my love for coding with others.
+              <br />
+              I love coding and making things happen through technology!
+            </p>
+          </div>
           </div>
       </div>
 
       {/* Mobile Layout */}
-      <div className="d-lg-none mt-5">
+      <div className="d-lg-none" style={{ paddingTop: "10px" }}>
         {/* Hero Section */}
-        <div className="container d-flex flex-column align-items-center justify-content-center text-center py-5" style={{ minHeight: "60vh" }}>
+        <div className="container d-flex flex-column align-items-center justify-content-center text-center py-3" style={{ minHeight: "60vh" }}>
           <div
             className="image-me d-flex align-items-center justify-content-center rounded-circle mb-4"
             style={{
@@ -95,6 +113,7 @@ const Home = () => {
               height: "200px",
               backgroundColor: "#fff",
               overflow: "hidden",
+              boxShadow: '0 15px 30px rgba(0,0,0,0.3)'
             }}
           >
             <img
@@ -106,19 +125,30 @@ const Home = () => {
           </div>
           
           <div className="px-3">
-            <h2 className="mb-3" style={{fontSize: "1.5rem !important"}}>Hi! I am Gokul</h2>
-            <h1 className="mt-2" style={{fontSize: "2rem !important"}}>I am a {text}</h1>
+            <h2 className="mb-3" style={{fontSize: "1.2rem", color: "#000000"}}>Hi, I am Gokul</h2>
+            <h1 className="mt-2" style={{fontSize: "1.5rem", color: "#000000"}}>I am a {text}<span className="blinking-cursor">_</span></h1>
           </div>
         </div>
 
-        {/* About Me Section - Below on mobile */}
-        <div className="w-100" style={{ backgroundColor: "#ffffff", padding: "40px 0", minHeight: "auto" }}>
+        {/* About Me Section - Retro Billboard Mobile */}
+        <div className="w-100" style={{ padding: "40px 0", minHeight: "50vh" }}>
           <div className="container px-3">
             <div className="row justify-content-center">
               <div className="col-12">
-                <div className="text-center" style={{ paddingBottom: "20px" }}>
-                  <h1 className="mb-4" style={{fontFamily: "'Rajdhani', 'sans-serif'", color: '#333', fontSize: '1.5rem !important'}}>ABOUT ME</h1>
-                  <p style={{fontFamily: "'Rajdhani', 'sans-serif'", fontSize: '1rem !important', color: '#333', lineHeight: "1.6", marginBottom: "0"}} className='text-wrap'>
+                <div 
+                  className="retro-billboard text-center" 
+                  style={{ 
+                    backgroundColor: "#ffffff", 
+                    padding: "20px", 
+                    border: 'none',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                    position: 'relative'
+                  }}
+                >
+
+              <h1 className="mb-3" style={{color: '#000000', fontSize: '1.3rem', fontWeight: '400'}}>About Me</h1>
+              <p style={{fontSize: '0.9rem', color: '#000000', lineHeight: "1.6", marginBottom: "0", textAlign: 'center'}} className='text-wrap'>
                     My journey began with a Bachelor's in Computer Science, where I discovered my passion for coding and web development. I fell in love with the creative process of building applications, mastering HTML, CSS, JavaScript, and React to bring ideas to life through code.
 
                     That passion for programming led me to develop enterprise-grade applications and work extensively with various technologies including Python, SQL, and cloud platforms. I enjoy the challenge of solving complex problems through elegant code and creating user-friendly interfaces that make a real difference.

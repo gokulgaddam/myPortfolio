@@ -1,38 +1,56 @@
-import React from "react";
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Navbar from "./components/Navbar";
+import ProgressBar from "./components/ProgressBar";
 import Home from "./components/Home";
+import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
-import Contact from "./components/Contact"
+import Contact from "./components/Contact";
+import LoadingAnimation from "./components/LoadingAnimation";
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const handleEnter = () => {
+    setIsLoading(false);
+  };
+
+  // Show loading animation while loading
+  if (isLoading) {
+    return <LoadingAnimation onEnter={handleEnter} />;
+  }
+
   return (
-    <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: "#283747" }}>
-    <Router>
+    <div className="d-flex flex-column min-vh-100 position-relative">
+      {/* Progress Bar */}
+      <ProgressBar />
+      
+      {/* Global Background Color */}
+      <div 
+        className="position-fixed w-100 h-100"
+        style={{
+          backgroundColor: "#f2f2f2 ",
+          zIndex: -1,
+          opacity: 1
+        }}
+      />
+      
+      
       <Navbar />
       
-      <Routes>
-        
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        
+      {/* Single Page Layout - All sections stacked vertically */}
+      <Home />
       
-        <Route path="/home" element={<Home />} />
-        
+      <Skills />
+      <Experience />
+      <Projects />
+      <Contact />
       
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-
-        
-        
-      </Routes>
-
+      
       <Footer />
-    </Router>
     </div>
   );
 };
