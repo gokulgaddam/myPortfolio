@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import F1Image from "../assets/F1.png";
 import DNS from "../assets/dnssec.png";
-import DBMS from "../assets/dbms.png";
 import pb1 from "../assets/customer_feedback.png";
 import pb2 from "../assets/sales.png";
 import cdc from "../assets/cdc.png";
